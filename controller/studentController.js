@@ -1,6 +1,13 @@
 // controller
-const createUser =(req,res)=>{
-    res.send("User Created")
+const studentModel = require('../model/student')
+
+const createUser = async(req,res)=>{
+   try {
+     const student = await studentModel.create(req.body);
+     res.status(201).json(student)
+   } catch (error) {
+     res.status(400).json({message: error.message})
+   }
 }
 
 

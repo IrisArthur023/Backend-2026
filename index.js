@@ -1,8 +1,16 @@
 // import express
 const express = require("express")
+// install mongoose
+const mongoose = require("mongoose")
+
+require("dotenv").config()
 
 // PORT NUMBER
-PORT=3000
+const PORT= process.env.PORT || 5000
+
+// MongoDB 
+const MONGO_URL= process.env.MONGO_URL
+
 
 // create server
 const server = express()
@@ -16,7 +24,17 @@ const studentRoutes = require("./Routes/studentRoutes")
 // Register Routes
 server.use(studentRoutes)
 
-// Start and listen to the server
-server.listen(PORT,()=>{
-  console.log("Server has started succesfully on josh 3000")
+mongoose.connect(MONGO_URL)
+.then(()=>{
+  console.log("MongoDB succesfully")
+
+
+  server.listen(PORT,()=>{
+  console.log("Server has started succesfully on jerry 5000")
 })
+  })
+  .catch((error)=>{
+  console.log("MongoDB connection failed", error.message)
+  })
+
+// Start and listen to the server
