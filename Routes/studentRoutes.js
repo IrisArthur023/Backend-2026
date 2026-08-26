@@ -2,7 +2,7 @@ const {retrieveUser,createUser} = require("../controller/studentController")
 const express = require("express")
 const router = express.Router()
 
-router.get("/jerry",retrieveUser)
+router.get("/students",retrieveUser)
 router.post("/create",createUser)
 
 
