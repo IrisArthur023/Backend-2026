@@ -1,9 +1,12 @@
-const {retrieveUser,createUser} = require("../controller/studentController")
+const {retrieveUser,createUser,getUserById,updateUser,deleteUser} = require("../controller/studentController")
 const express = require("express")
 const router = express.Router()
 
-router.get("/students",retrieveUser)
-router.post("/create",createUser)
+router.post("/students", createUser);
+router.get("/students", retrieveUser);
+router.get("/students/:id", getUserById);
+router.put("/students/:id", updateUser);
+router.delete("/students/:id", deleteUser);
 
 
 module.exports= router
