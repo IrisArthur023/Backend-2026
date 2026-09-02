@@ -1,22 +1,38 @@
-// import express
-const express = require("express")
+require("dotenv").config();
+const express = require("express");
+const connectDB = require("./config/db");
+const studentRoutes = require("./Routes/studentRoutes");
 
-// PORT NUMBER
-PORT=3000
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-// create server
-const server = express()
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// middleware
-server.use(express.json());
+// Base health route
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Welcome to Student API Backend",
+    status: "Healthy",
+  });
+});
 
-//  import the Routes
-const studentRoutes = require("./Routes/studentRoutes")
+// Register Routes (available at both root and /api prefix)
+app.use("/api", studentRoutes);
+app.use(studentRoutes);
 
-// Register Routes
-server.use(studentRoutes)
+// 404 Handler for undefined routes
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
 
-// Start and listen to the server
-server.listen(PORT,()=>{
-  console.log("Server has started succesfully on josh 3000")
-})
+// Connect to Database and start server
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`Server is running successfully on port ${PORT}`);
+  });
+};
+
+startServer();

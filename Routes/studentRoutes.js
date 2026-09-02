@@ -1,9 +1,23 @@
-const {retrieveUser,createUser} = require("../controller/studentController")
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const {
+  createUser,
+  retrieveUser,
+  retrieveSingleUser,
+  updateUser,
+  deleteUser,
+} = require("../controller/studentController");
 
-router.get("/josh",retrieveUser)
-router.post("/create",createUser)
+// CRUD Routes
+router.post("/students", createUser);
+router.post("/create", createUser); // Alias for backward compatibility
 
+router.get("/students", retrieveUser);
+router.get("/students/:id", retrieveSingleUser);
 
-module.exports= router
+router.put("/students/:id", updateUser);
+router.patch("/students/:id", updateUser);
+
+router.delete("/students/:id", deleteUser);
+
+module.exports = router;
