@@ -20,9 +20,11 @@ server.use(express.json());
 
 //  import the Routes
 const studentRoutes = require("./Routes/studentRoutes")
+const authRoutes = require("./Routes/authRoutes")
 
 // Register Routes
 server.use(studentRoutes)
+server.use(authRoutes)
 
 mongoose.connect(MONGO_URL)
 .then(()=>{

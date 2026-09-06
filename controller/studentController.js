@@ -2,6 +2,7 @@
 const StudentModel = require('../model/student')
 
 const createUser = async(req,res)=>{
+  
    try {
      const student = await StudentModel.create(req.body);
      res.status(201).json(student)
@@ -30,7 +31,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+const updateUser = async (req, res,) => {
   try {
     const student = await StudentModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!student) return res.status(404).json({ message: "Not found" });
